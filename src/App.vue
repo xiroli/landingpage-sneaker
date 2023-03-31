@@ -9,13 +9,14 @@
     import deleteIcon from "../images/icon-delete.svg"
 import { onMounted, ref, watch } from "vue"
     let menu = $ref(false)
-    let dialog = $ref(null)
+    let dialog = $ref<HTMLDialogElement | null>(null)
     let cartUser = $ref(false)
     let cartAmount = $ref(0)
     function dialogs() {
         menu = !menu
+        if(dialog == null) return
         if(!dialog.open) {
-            dialog.showModal()
+            dialog!.showModal()
         } 
     }
     onMounted(() => {
@@ -25,7 +26,7 @@ import { onMounted, ref, watch } from "vue"
         // dialog.open()
     })
     function close() {
-        dialog.close()
+        dialog!.close()
     }
     function addCart(q: number) {
         cartAmount += q

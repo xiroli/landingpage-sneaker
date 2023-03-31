@@ -11,11 +11,19 @@ import product4Thumbnail from "../../images/image-product-4-thumbnail.jpg"
 import prev from "../../images/icon-previous.svg"
 import next from "../../images/icon-next.svg"
 
+type Ttype = {
+    offsetWidth: number,
+    scrollLeft: number,
+    scrollWidth: number
+
+}
+
 let productImage = $ref(product1)
 let dialogImage = $ref(product1)
-const scroll = $ref(null)
-let dialog = $ref(null)
+const scroll = $ref<Ttype| null>(null)
+let dialog = $ref<HTMLDialogElement | null>(null)
 function nextImage() {
+    if(scroll == null) return
     if(scroll.offsetWidth + scroll.scrollLeft >= scroll.scrollWidth) {
         scroll.scrollLeft = 0
     } else {
@@ -23,6 +31,7 @@ function nextImage() {
     }
 }
 function prevImage() {
+    if(scroll == null) return
     if(scroll.scrollLeft <= 0) {
         scroll.scrollLeft = scroll.scrollWidth
     } else {
@@ -54,6 +63,7 @@ function nextImageDialog() {
 }
 function open(product: string) {
     dialogImage = product
+    if(dialog == null) return
     if(!dialog.open) {
         dialog.showModal()
     }
